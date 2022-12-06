@@ -1,13 +1,6 @@
 #!/usr/bin/python
 import string
 from collections import deque
-""" 1) Lista de pilas con tantas pilas como columnas haya en el archivo de entrada
-2) Rellenar cada pila con su configuración inicial
-3) Función que interprete los movimientos
-	- Usar split con separador ' '
-4) Función que ejecute los movimientos (move(howmany,from,to))
-5) Cuando haya acabado de encontrar líneas: sacar el primero de cada pila y concatenarlos
-6) Replace '[' y ']' por '' """
 
 def get_initial_config(line_list): #Returns a list of stacks with the initial config
     base = 0
@@ -44,8 +37,13 @@ def execute_movement(text, stack_list): #Interprets the movement specified in th
     return
 
 def move(howmany,origin,destination, stack_list): #Moves "howmany" elements from origin to destination
+    auxstack = deque();
     for i in range(0,howmany):
-        stack_list[destination - 1].append(stack_list[origin - 1].pop())
+        #stack_list[destination - 1].append(stack_list[origin - 1].pop())
+        auxstack.append(stack_list[origin - 1].pop())
+    
+    for i in range(0,howmany):
+        stack_list[destination - 1].append(auxstack.pop())
     return
 
 def top_in_each_stack(stack_list):
